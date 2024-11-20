@@ -12,3 +12,28 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+enum UserRole {
+    ADMIN
+    SUPPLIER
+}
+enum PromotionStatus {
+    PENDING
+    APPROVED
+    REJECTED
+}
+model User {
+    id            Int       @id @default(autoincrement())
+    email         String    @unique
+    password      String
+    name          String
+    role          UserRole
+    promotions    Promotion[] 
+}
+model Promotion {
+    id            Int       @id @default(autoincrement())
+    title         String
+    description   String
+    status        PromotionStatus
+    supplierId    Int
+    supplier      User      @relation(fields: [supplierId], references: [id])
+}
