@@ -2,10 +2,10 @@
   "name": "api-discount",
   "version": "1.0.0",
   "description": "API for manage discount in your city",
-  "main": "index.js",
+  "main": "main.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node ./dist/main.js",
+    "start": "node ./dist/app/main.js",
     "build": "tsc",
     "lint": "eslint ./src/**",
     "lint:fix": "eslint ./src/** --fix"
