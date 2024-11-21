@@ -43,7 +43,7 @@ export class PromotionRepository implements IPromotionRepository {
 		});
 		return deletepromotion;
 	}
-	public async getAllPending(): Promise<Promotion[]> {
+	public async getPendingPromotions(): Promise<Promotion[]> {
 		const pendingPromotions = await this.prisma.promotion.findMany({
 			where: { status: 'PENDING' },
 		});

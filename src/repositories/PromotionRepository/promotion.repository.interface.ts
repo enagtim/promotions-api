@@ -11,7 +11,7 @@ export interface IPromotionRepository {
 	getBySupplier: (supplierId: number) => Promise<Promotion[] | null>;
 	updateStatus: (promotionId: number, status: PromotionStatus) => Promise<Promotion>;
 	delete: (promotionId: number) => Promise<Promotion>;
-	getAllPending: () => Promise<Promotion[]>;
+	getPendingPromotions: () => Promise<Promotion[]>;
 	getApprovedPromotions: () => Promise<Promotion[]>;
 	getRejectedPromotions: () => Promise<Promotion[]>;
 }
