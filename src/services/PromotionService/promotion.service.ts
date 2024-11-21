@@ -27,14 +27,14 @@ export class PromitionService implements IPromotionService {
 	): Promise<Promotion | null> {
 		const promotion = await this.promotionRepository.getById(promotionId);
 		if (!promotion) {
-			throw new Error(`Акция с ID №${promotionId} не найдена!`);
+			throw new Error(`Promotion ID №${promotionId} not found!`);
 		}
 		return this.promotionRepository.updateStatus(promotionId, status);
 	}
-	public async delete(promotionId: number): Promise<Promotion | null> {
+	public async deletePromotion(promotionId: number): Promise<Promotion | null> {
 		const promotion = await this.promotionRepository.getById(promotionId);
 		if (!promotion) {
-			throw new Error(`Акция с ID №${promotionId} не найдена!`);
+			throw new Error(`Promotion ID №${promotionId} not found!`);
 		}
 		return this.promotionRepository.delete(promotionId);
 	}

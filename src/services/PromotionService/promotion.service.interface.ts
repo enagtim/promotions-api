@@ -11,5 +11,5 @@ export interface IPromotionService {
 		promotionId: number,
 		status: PromotionStatus,
 	) => Promise<Promotion | null>;
-	delete: (promotionId: number) => Promise<Promotion | null>;
+	deletePromotion: (promotionId: number) => Promise<Promotion | null>;
 }
