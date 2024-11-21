@@ -17,7 +17,7 @@ export class UserService implements IUserService {
 	}): Promise<User> {
 		const existedUser = await this.userRepository.getByEmail(data.email);
 		if (existedUser) {
-			throw new Error(`Пользователь с email ${data.email} уже существует!`);
+			throw new Error(`User email ${data.email} is existed!`);
 		}
 		const hashedPassword = await bcrypt.hash(data.password, 10);
 		return this.userRepository.create({ ...data, password: hashedPassword });
@@ -25,7 +25,7 @@ export class UserService implements IUserService {
 	public async getUserById(userId: number): Promise<User | null> {
 		const user = await this.userRepository.getById(userId);
 		if (!user) {
-			throw new Error(`Пользователь с ID №${userId} не найден`);
+			throw new Error(`User ID №${userId} not found`);
 		}
 		return user;
 	}
@@ -35,14 +35,14 @@ export class UserService implements IUserService {
 	): Promise<User> {
 		const user = await this.userRepository.getById(userId);
 		if (!user) {
-			throw new Error(`Пользователь с ID №${userId} не найден`);
+			throw new Error(`User ID №${userId} not found`);
 		}
 		return this.userRepository.update(userId, userData);
 	}
 	public async deleteUser(userId: number): Promise<User> {
 		const user = await this.userRepository.getById(userId);
 		if (!user) {
-			throw new Error(`Пользователь с ID №${userId} не найден`);
+			throw new Error(`User ID №${userId} not found`);
 		}
 		return this.userRepository.delete(userId);
 	}
