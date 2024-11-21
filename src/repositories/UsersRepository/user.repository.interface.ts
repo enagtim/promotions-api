@@ -1,6 +1,6 @@
 import { User, UserRole } from '@prisma/client';
 
-export interface IUserRepisitory {
+export interface IUserRepository {
 	create: (userdata: {
 		email: string;
 		password: string;

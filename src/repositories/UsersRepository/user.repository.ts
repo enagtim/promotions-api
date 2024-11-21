@@ -1,11 +1,11 @@
 import { PrismaClient, User, UserRole } from '@prisma/client';
-import { IUserRepisitory } from './user.repository.interface';
+import { IUserRepository } from './user.repository.interface';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../type';
 import 'reflect-metadata';
 
 @injectable()
-export class UserRepository implements IUserRepisitory {
+export class UserRepository implements IUserRepository {
 	constructor(@inject(TYPES.PrismaClient) private prisma: PrismaClient) {}
 	public async create(userdata: {
 		email: string;
