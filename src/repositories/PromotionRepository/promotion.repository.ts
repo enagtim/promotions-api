@@ -7,14 +7,14 @@ import 'reflect-metadata';
 @injectable()
 export class PromotionRepository implements IPromotionRepository {
 	constructor(@inject(TYPES.PrismaClient) private prisma: PrismaClient) {}
-	public async create(promotiondata: {
+	public async create(promotionData: {
 		title: string;
 		description: string;
 		status: PromotionStatus;
 		supplierId: number;
 	}): Promise<Promotion> {
 		const promotion = await this.prisma.promotion.create({
-			data: promotiondata,
+			data: promotionData,
 		});
 		return promotion;
 	}

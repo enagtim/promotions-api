@@ -9,7 +9,7 @@ export interface IUserRepository {
 	}) => Promise<User>;
 	getById: (userId: number) => Promise<User | null>;
 	getByEmail: (email: string) => Promise<User | null>;
-	getAll: () => Promise<User[] | null>;
+	getByRole: (role: UserRole) => Promise<User | null>;
 	update: (
 		userId: number,
 		userData: Partial<{ email: string; password: string; name: string; role: UserRole }>,

@@ -26,13 +26,15 @@ export class UserRepository implements IUserRepository {
 	}
 	public async getByEmail(email: string): Promise<User | null> {
 		const user = await this.prisma.user.findUnique({
-			where: { email: email },
+			where: { email },
 		});
 		return user;
 	}
-	public async getAll(): Promise<User[] | null> {
-		const users = await this.prisma.user.findMany();
-		return users;
+	public async getByRole(role: UserRole): Promise<User | null> {
+		const user = await this.prisma.user.findFirst({
+			where: { role },
+		});
+		return user;
 	}
 	public async update(
 		userId: number,

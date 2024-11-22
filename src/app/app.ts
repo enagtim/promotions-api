@@ -17,7 +17,8 @@ export class App {
 	}
 	public async init() {
 		await this.prisma.$connect();
-		this.server = this.app.listen(this.port);
-		console.log(`Сервер запущен на http://localhost:${this.port}`);
+		this.server = this.app.listen(this.port, () => {
+			console.log(`Сервер запущен на http://localhost:${this.port}`);
+		});
 	}
 }
