@@ -6,16 +6,16 @@ import { TYPES } from '../../type';
 import { IPromotionRepository } from '../../repositories/PromotionRepository/promotion.repository.interface';
 
 @injectable()
-export class PromitionService implements IPromotionService {
+export class PromotionService implements IPromotionService {
 	constructor(
 		@inject(TYPES.PromotionRepository) private promotionRepository: IPromotionRepository,
 	) {}
-	public async createPromotion(data: {
+	public async createPromotion(promotiondata: {
 		title: string;
 		description: string;
 		supplierId: number;
 	}): Promise<Promotion> {
-		return this.promotionRepository.create({ ...data, status: PromotionStatus.PENDING });
+		return this.promotionRepository.create({ ...promotiondata, status: PromotionStatus.PENDING });
 	}
 	public async getPromotionBySupplier(supplierId: number): Promise<Promotion[]> {
 		const promotions = (await this.promotionRepository.getBySupplier(supplierId)) || [];

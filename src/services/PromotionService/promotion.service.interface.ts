@@ -1,7 +1,7 @@
 import { Promotion, PromotionStatus } from '@prisma/client';
 
 export interface IPromotionService {
-	createPromotion: (data: {
+	createPromotion: (promotiondata: {
 		title: string;
 		description: string;
 		supplierId: number;

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { IUserController } from './user.controller.interface';
 import { inject, injectable } from 'inversify';
-import 'reflect-metadata';
 import { TYPES } from '../../type';
 import { IUserService } from '../../services/UserService/user.service.interface';
+import 'reflect-metadata';
 
 @injectable()
 export class UserController implements IUserController {
