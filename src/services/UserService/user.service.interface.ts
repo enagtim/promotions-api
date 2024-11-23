@@ -7,10 +7,10 @@ export interface IUserService {
 		name: string;
 		role: UserRole;
 	}) => Promise<User>;
-	getUserById: (userId: number) => Promise<User | null>;
+	getUserById: (id: number) => Promise<User | null>;
 	updateDataUser: (
 		userId: number,
 		userData: Partial<{ email: string; password: string; name: string; role: UserRole }>,
 	) => Promise<User>;
-	deleteUser: (userId: number) => Promise<User>;
+	deleteUser: (id: number) => Promise<User>;
 }

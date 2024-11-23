@@ -7,12 +7,12 @@ export interface IUserRepository {
 		name: string;
 		role: UserRole;
 	}) => Promise<User>;
-	getById: (userId: number) => Promise<User | null>;
+	getById: (id: number) => Promise<User | null>;
 	getByEmail: (email: string) => Promise<User | null>;
 	getByRole: (role: UserRole) => Promise<User | null>;
 	update: (
-		userId: number,
+		id: number,
 		userData: Partial<{ email: string; password: string; name: string; role: UserRole }>,
 	) => Promise<User>;
-	delete: (userId: number) => Promise<User>;
+	delete: (id: number) => Promise<User>;
 }
