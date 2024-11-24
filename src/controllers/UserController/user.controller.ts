@@ -1,16 +1,29 @@
-import { json, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { IUserController } from './user.controller.interface';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../type';
 import { IUserService } from '../../services/UserService/user.service.interface';
 import 'reflect-metadata';
+import { User } from '@prisma/client';
 
 @injectable()
 export class UserController implements IUserController {
 	constructor(@inject(TYPES.UserService) private userService: IUserService) {}
 	public async createUser(req: Request, res: Response): Promise<void> {
 		try {
-			const user = await this.userService.createUser(req.body);
+			const { email, password, name, role } = req.body as User;
+			if (!email || !password || !name || !role) {
+				res.status(400).json({
+					message: 'Invalid user data. email, password, name and role are required.',
+				});
+				return;
+			}
+			const user = await this.userService.createUser({
+				email,
+				password,
+				name,
+				role,
+			});
 			res.status(201).json(user);
 		} catch (error) {
 			if (error instanceof Error) {
@@ -68,7 +81,7 @@ export class UserController implements IUserController {
 				res.status(404).json({ message: 'User not found' });
 				return;
 			}
-			res.status(204).json(user);
+			res.status(200).json({ message: 'User deleted successfully' });
 		} catch (error) {
 			if (error instanceof Error) {
 				res.status(400).json({ message: error.message });
