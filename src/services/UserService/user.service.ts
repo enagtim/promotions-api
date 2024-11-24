@@ -17,33 +17,27 @@ export class UserService implements IUserService {
 	}): Promise<User> {
 		const existedUser = await this.userRepository.getByEmail(userdata.email);
 		if (existedUser) {
-			throw new Error(`User email ${userdata.email} is existed!`);
+			throw new Error(`User ${userdata.email} is existed!`);
 		}
 		const hashedPassword = await bcrypt.hash(userdata.password, 10);
 		return this.userRepository.create({ ...userdata, password: hashedPassword });
 	}
-	public async getUserById(userId: number): Promise<User | null> {
-		const user = await this.userRepository.getById(userId);
-		if (!user) {
-			throw new Error(`User ID №${userId} not found`);
-		}
+	public async getUserById(id: number): Promise<User | null> {
+		const user = await this.userRepository.getById(id);
 		return user;
 	}
 	public async updateDataUser(
-		userId: number,
+		id: number,
 		userData: Partial<{ email: string; password: string; name: string; role: UserRole }>,
 	): Promise<User> {
-		const user = await this.userRepository.getById(userId);
-		if (!user) {
-			throw new Error(`User ID №${userId} not found`);
+		await this.userRepository.getById(id);
+		if (userData.password) {
+			userData.password = await bcrypt.hash(userData.password, 10);
 		}
-		return this.userRepository.update(userId, userData);
+		return this.userRepository.update(id, userData);
 	}
-	public async deleteUser(userId: number): Promise<User> {
-		const user = await this.userRepository.getById(userId);
-		if (!user) {
-			throw new Error(`User ID №${userId} not found`);
-		}
-		return this.userRepository.delete(userId);
+	public async deleteUser(id: number): Promise<User> {
+		await this.userRepository.getById(id);
+		return this.userRepository.delete(id);
 	}
 }

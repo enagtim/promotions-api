@@ -22,6 +22,9 @@ export class AuthService implements IAuthService {
 				throw new Error(`Admin is existed!`);
 			}
 		}
+		if (registerdata.role === 'SUPPLIER') {
+			throw new Error('Only admin can register! We should wait until ADMIN create your account');
+		}
 		const hashedPassword = await bcrypt.hash(registerdata.password, 10);
 		return this.userRepository.create({ ...registerdata, password: hashedPassword });
 	}

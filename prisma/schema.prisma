@@ -1,39 +1,38 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "windows", "debian-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-enum UserRole {
-    ADMIN
-    SUPPLIER
-}
-enum PromotionStatus {
-    PENDING
-    APPROVED
-    REJECTED
-}
+
 model User {
-    id            Int       @id @default(autoincrement())
-    email         String    @unique
-    password      String
-    name          String
-    role          UserRole
-    promotions    Promotion[] 
+  id         Int         @id @default(autoincrement())
+  email      String      @unique
+  password   String
+  name       String
+  role       UserRole
+  promotions Promotion[]
 }
+
 model Promotion {
-    id            Int       @id @default(autoincrement())
-    title         String
-    description   String
-    status        PromotionStatus
-    supplierId    Int
-    supplier      User      @relation(fields: [supplierId], references: [id])
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String
+  status      PromotionStatus
+  supplierId  Int
+  supplier    User            @relation(fields: [supplierId], references: [id])
+}
+
+enum UserRole {
+  ADMIN
+  SUPPLIER
+}
+
+enum PromotionStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

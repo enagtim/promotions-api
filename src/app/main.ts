@@ -35,8 +35,8 @@ function bootstrap() {
 	const appContainer = new Container();
 	appContainer.load(appBindings);
 	const app = appContainer.get<App>(TYPES.Application);
-	app.init();
+	app.init(appContainer);
 	return { appContainer, app };
 }
 
-export const { app, appContainer } = bootstrap();
+export const { appContainer, app } = bootstrap();

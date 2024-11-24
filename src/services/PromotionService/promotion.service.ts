@@ -25,17 +25,11 @@ export class PromotionService implements IPromotionService {
 		promotionId: number,
 		status: PromotionStatus,
 	): Promise<Promotion | null> {
-		const promotion = await this.promotionRepository.getById(promotionId);
-		if (!promotion) {
-			throw new Error(`Promotion ID №${promotionId} not found!`);
-		}
+		await this.promotionRepository.getById(promotionId);
 		return this.promotionRepository.updateStatus(promotionId, status);
 	}
 	public async deletePromotion(promotionId: number): Promise<Promotion | null> {
-		const promotion = await this.promotionRepository.getById(promotionId);
-		if (!promotion) {
-			throw new Error(`Promotion ID №${promotionId} not found!`);
-		}
+		await this.promotionRepository.getById(promotionId);
 		return this.promotionRepository.delete(promotionId);
 	}
 }

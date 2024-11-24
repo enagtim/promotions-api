@@ -11,7 +11,7 @@ export const checkRole = (requiredRole: UserRole) => {
 		}
 
 		if (user.role !== requiredRole) {
-			res.status(403).json({ message: 'Forbidden' });
+			res.status(403).json({ message: 'Role does not exist' });
 			return;
 		}
 		next();
