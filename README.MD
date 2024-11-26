@@ -19,13 +19,10 @@ Promotion-api — API акционных предложений представ
    cd promotions-api
 2. **Установка зависимостей**
     ```bach
-
     npm install
 3. **Создание билда**
     ```bach
-
     npm run build
 4. **Запуск сервера**
     ```bach
-
     npm start
