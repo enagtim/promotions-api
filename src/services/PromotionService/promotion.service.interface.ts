@@ -9,7 +9,7 @@ export interface IPromotionService {
 		startDate: Date;
 		endDate: Date;
 		createdAt: Date;
-	}) => Promise<Promotion>;
+	}) => Promise<Promotion | null>;
 	getPromotionBySupplier: (supplierId: number) => Promise<Promotion[] | null>;
 	updateStatusPromotion: (
 		promotionId: number,

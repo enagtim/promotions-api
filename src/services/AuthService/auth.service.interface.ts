@@ -6,6 +6,6 @@ export interface IAuthService {
 		password: string;
 		name: string;
 		role: Role;
-	}) => Promise<InfoRole>;
+	}) => Promise<InfoRole | null>;
 	login: (logingdata: { email: string; password: string }) => Promise<{ token: string }>;
 }

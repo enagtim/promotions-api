@@ -5,7 +5,7 @@ import { RoleController } from '../controllers/RoleController/role.controller';
 import { authenticate } from '../middlewares/authenticate';
 import { checkRole } from '../middlewares/сheckrole';
 
-export function getUsersRoutes(appContainer: Container): Router {
+export function getRolesRoutes(appContainer: Container): Router {
 	const usersRouter = Router();
 	const usersController = appContainer.get<RoleController>(TYPES.RoleController);
 	usersRouter.post('/create', authenticate, checkRole('ADMIN'), (req, res) => {
@@ -22,8 +22,8 @@ export function getUsersRoutes(appContainer: Container): Router {
 	});
 	return usersRouter;
 }
-export function setupUsersRoutes(appContainer: Container): Router {
+export function setupRolesRoutes(appContainer: Container): Router {
 	const router = Router();
-	router.use('/roles', getUsersRoutes(appContainer));
+	router.use('/roles', getRolesRoutes(appContainer));
 	return router;
 }

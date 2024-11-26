@@ -14,7 +14,7 @@ export class AuthController implements IAuthController {
 			const { email, password, name, role } = req.body as InfoRole;
 			if (!email || !password || !name || !role) {
 				res.status(400).json({
-					message: 'Invalid user data. email, password, name, role, notifications are required.',
+					message: 'Invalid user data. email, password, name, role are required.',
 				});
 				return;
 			}

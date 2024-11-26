@@ -18,7 +18,7 @@ export class PromotionService implements IPromotionService {
 		startDate: Date;
 		endDate: Date;
 		createdAt: Date;
-	}): Promise<Promotion> {
+	}): Promise<Promotion | null> {
 		return this.promotionRepository.create({ ...promotiondata, status: PromotionStatus.PENDING });
 	}
 	public async getPromotionBySupplier(supplierId: number): Promise<Promotion[]> {

@@ -18,6 +18,18 @@ import { IAuthService } from '../services/AuthService/auth.service.interface';
 import { AuthService } from '../services/AuthService/auth.service';
 import { IAuthController } from '../controllers/AuthController/auth.controller.interface';
 import { AuthController } from '../controllers/AuthController/auth.controller';
+import { IUserRepository } from '../repositories/UsersRepository/user.repository.interface';
+import { UserRepository } from '../repositories/UsersRepository/users.repository';
+import { IUserService } from '../services/UserService/user.service.interface';
+import { UserService } from '../services/UserService/user.service';
+import { IUserController } from '../controllers/UserController/user.controller.interface';
+import { UserController } from '../controllers/UserController/user.controller';
+import { ITagRepository } from '../repositories/TagsRepository/tag.repository.interface';
+import { TagRepository } from '../repositories/TagsRepository/tag.repository';
+import { ITagService } from '../services/TagsService/tag.service.interface';
+import { TagService } from '../services/TagsService/tag.service';
+import { ITagController } from '../controllers/TagController/tag.controller.interface';
+import { TagController } from '../controllers/TagController/tag.controller';
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(new PrismaClient());
@@ -29,6 +41,12 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<IPromotionController>(TYPES.PromotionController).to(PromotionController);
 	bind<IAuthService>(TYPES.AuthService).to(AuthService);
 	bind<IAuthController>(TYPES.AuthController).to(AuthController);
+	bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
+	bind<IUserService>(TYPES.UserService).to(UserService);
+	bind<IUserController>(TYPES.UserController).to(UserController);
+	bind<ITagRepository>(TYPES.TagRepository).to(TagRepository);
+	bind<ITagService>(TYPES.TagService).to(TagService);
+	bind<ITagController>(TYPES.TagController).to(TagController);
 	bind<App>(TYPES.Application).to(App);
 });
 function bootstrap() {

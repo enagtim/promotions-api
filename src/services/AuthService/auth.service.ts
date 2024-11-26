@@ -15,7 +15,7 @@ export class AuthService implements IAuthService {
 		password: string;
 		name: string;
 		role: Role;
-	}): Promise<InfoRole> {
+	}): Promise<InfoRole | null> {
 		if (registerdata.role === 'ADMIN') {
 			const admin = await this.roleRepository.getByRole(registerdata.role);
 			if (admin) {

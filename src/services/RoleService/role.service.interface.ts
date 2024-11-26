@@ -6,11 +6,11 @@ export interface IRoleService {
 		password: string;
 		name: string;
 		role: Role;
-	}) => Promise<InfoRole>;
+	}) => Promise<InfoRole | null>;
 	getRoleById: (id: number) => Promise<InfoRole | null>;
 	updateDataRole: (
 		id: number,
 		roledata: Partial<{ email: string; password: string; name: string; role: Role }>,
-	) => Promise<InfoRole>;
-	deleteRole: (id: number) => Promise<InfoRole>;
+	) => Promise<InfoRole | null>;
+	deleteRole: (id: number) => Promise<InfoRole | null>;
 }

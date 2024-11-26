@@ -28,29 +28,36 @@ model InfoRole {
 model User {
   id                  Int @id @default(autoincrement())
   city                String
-  notifications       Boolean    
+  notifications       Notification[]    
   subscribedTags      UserTag[]
 }
 model Promotion {
-  id          Int             @id @default(autoincrement())
-  title       String
-  description String
-  status      PromotionStatus
-  supplierId  Int
-  supplier    InfoRole        @relation(fields: [supplierId], references: [id])
-  city        String
-  startDate   DateTime
-  endDate     DateTime  
-  createdAt   DateTime        @default(now())
-  tags        PromotionTag[]
+  id            Int             @id @default(autoincrement())
+  title         String
+  description   String
+  status        PromotionStatus
+  supplierId    Int
+  supplier      InfoRole        @relation(fields: [supplierId], references: [id])
+  city          String
+  startDate     DateTime
+  endDate       DateTime  
+  createdAt     DateTime        @default(now())
+  tags          PromotionTag[]
+  notifications Notification[]
 }
-//сделать табличку города пользвателя
-//сделать табличка тегов должна быть связана с городом
 model Tag {
     id             Int             @id @default(autoincrement())
     name           String          @unique
     promotions     PromotionTag[]
     users          UserTag[]
+}
+model Notification {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  promotionId  Int
+  sentAt       DateTime   @default(now())
+  user         User       @relation(fields: [userId], references: [id])
+  promotion    Promotion  @relation(fields: [promotionId], references: [id])
 }
 model PromotionTag {
   id           Int        @id @default(autoincrement())
