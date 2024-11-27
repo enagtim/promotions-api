@@ -12,6 +12,9 @@ export class UserRepository implements IUserRepository {
 			data: userdata,
 		});
 	}
+	public async getAllUsers(): Promise<User[] | null> {
+		return this.prisma.user.findMany();
+	}
 	public async getUser(id: number): Promise<User | null> {
 		return this.prisma.user.findUnique({
 			where: { id },
@@ -22,12 +25,11 @@ export class UserRepository implements IUserRepository {
 			where: {
 				city,
 				subscribedTags: {
-					some: {
-						id: {
-							in: tagIds,
-						},
-					},
+					some: { tagId: { in: tagIds } },
 				},
+			},
+			include: {
+				subscribedTags: true,
 			},
 		});
 	}

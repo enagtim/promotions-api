@@ -11,6 +11,9 @@ export class UserService implements IUserService {
 	public async createUser(userdata: { city: string }): Promise<User | null> {
 		return this.userRepository.create(userdata);
 	}
+	public async getAllUsers(): Promise<User[] | null> {
+		return this.userRepository.getAllUsers();
+	}
 	public async getUserById(id: number): Promise<User | null> {
 		return this.userRepository.getUser(id);
 	}

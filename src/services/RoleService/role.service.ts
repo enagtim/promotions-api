@@ -23,8 +23,7 @@ export class RoleService implements IRoleService {
 		return this.roleRepository.create({ ...roledata, password: hashedPassword });
 	}
 	public async getRoleById(id: number): Promise<InfoRole | null> {
-		const role = await this.roleRepository.getById(id);
-		return role;
+		return await this.roleRepository.getById(id);
 	}
 	public async updateDataRole(
 		id: number,

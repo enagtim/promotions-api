@@ -8,19 +8,19 @@ import { checkRole } from '../middlewares/сheckrole';
 export function getTagsRoutes(appContainer: Container): Router {
 	const tagRouter = Router();
 	const usersController = appContainer.get<TagController>(TYPES.TagController);
-	tagRouter.post('/create', authenticate, checkRole('ADMIN'), (req, res) => {
+	tagRouter.post('/tag/create', authenticate, checkRole('ADMIN'), (req, res) => {
 		return usersController.createTag(req, res);
 	});
-	tagRouter.post('/add-user', (req, res) => {
+	tagRouter.post('/add/user', (req, res) => {
 		return usersController.addTagsToUser(req, res);
 	});
-	tagRouter.get('/get', authenticate, checkRole('ADMIN'), (req, res) => {
+	tagRouter.get('/all', (req, res) => {
 		return usersController.getAllTags(req, res);
 	});
-	tagRouter.get('/get-user', (req, res) => {
+	tagRouter.get('/all/user', (req, res) => {
 		return usersController.getTagsByUserId(req, res);
 	});
-	tagRouter.delete('/remove-user', (req, res) => {
+	tagRouter.delete('/user/remove', (req, res) => {
 		return usersController.removeTagsFromUser(req, res);
 	});
 	return tagRouter;

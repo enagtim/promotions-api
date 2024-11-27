@@ -8,16 +8,16 @@ import { checkRole } from '../middlewares/сheckrole';
 export function getRolesRoutes(appContainer: Container): Router {
 	const usersRouter = Router();
 	const usersController = appContainer.get<RoleController>(TYPES.RoleController);
-	usersRouter.post('/create', authenticate, checkRole('ADMIN'), (req, res) => {
+	usersRouter.post('/role/create', authenticate, checkRole('ADMIN'), (req, res) => {
 		return usersController.createRole(req, res);
 	});
-	usersRouter.get('/get', authenticate, checkRole('ADMIN'), (req, res) => {
+	usersRouter.get('/role', authenticate, checkRole('ADMIN'), (req, res) => {
 		return usersController.getRoleById(req, res);
 	});
-	usersRouter.patch('/update', authenticate, checkRole('ADMIN'), (req, res) => {
+	usersRouter.patch('/role/update', authenticate, checkRole('ADMIN'), (req, res) => {
 		return usersController.updateRole(req, res);
 	});
-	usersRouter.delete('/delete', authenticate, checkRole('ADMIN'), (req, res) => {
+	usersRouter.delete('/role/remove', authenticate, checkRole('ADMIN'), (req, res) => {
 		return usersController.deleteRole(req, res);
 	});
 	return usersRouter;

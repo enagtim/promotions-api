@@ -6,16 +6,19 @@ import { TYPES } from '../type';
 export function getUsersRoutes(appContainer: Container): Router {
 	const usersRouter = Router();
 	const usersController = appContainer.get<UserController>(TYPES.UserController);
-	usersRouter.post('/create', (req, res) => {
+	usersRouter.post('/user/create', (req, res) => {
 		return usersController.createUserBot(req, res);
 	});
-	usersRouter.get('/get-user', (req, res) => {
+	usersRouter.get('/user', (req, res) => {
 		return usersController.getUserBot(req, res);
 	});
-	usersRouter.get('/get-user-city', (req, res) => {
+	usersRouter.get('/all', (req, res) => {
+		return usersController.getAllUsers(req, res);
+	});
+	usersRouter.get('/all/tagcity', (req, res) => {
 		return usersController.getUsersByTagsAndCity(req, res);
 	});
-	usersRouter.patch('/update', (req, res) => {
+	usersRouter.patch('/user/update', (req, res) => {
 		return usersController.updateUserData(req, res);
 	});
 	return usersRouter;

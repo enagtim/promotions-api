@@ -5,5 +5,5 @@ export interface ITagRepository {
 	getAllTags: () => Promise<Tag[] | null>;
 	addTagsToUser: (userId: number, tagIds: number[]) => Promise<void>;
 	removeTagsFromUser: (userId: number, tagIds: number[]) => Promise<void>;
-	getTagsByUserId: (userId: number) => Promise<Tag[]>;
+	getTagsByUserId: (userId: number) => Promise<Tag[] | null>;
 }

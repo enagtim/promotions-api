@@ -9,8 +9,10 @@ export interface IPromotionService {
 		startDate: Date;
 		endDate: Date;
 		createdAt: Date;
+		tagIds: number[];
 	}) => Promise<Promotion | null>;
 	getPromotionBySupplier: (supplierId: number) => Promise<Promotion[] | null>;
+	getPromotionsByCityAndTags: (city: string, tagIds: number[]) => Promise<Promotion[] | null>;
 	updateStatusPromotion: (
 		promotionId: number,
 		status: PromotionStatus,

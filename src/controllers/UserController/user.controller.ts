@@ -27,6 +27,20 @@ export class UserController implements IUserController {
 			}
 		}
 	}
+	public async getAllUsers(req: Request, res: Response): Promise<void> {
+		try {
+			const users = await this.userservice.getAllUsers();
+			if (!users) {
+				res.status(404).json({ message: 'User not found' });
+				return;
+			}
+			res.status(200).json(users);
+		} catch (error) {
+			if (error instanceof Error) {
+				res.status(400).json({ message: error.message });
+			}
+		}
+	}
 	public async getUserBot(req: Request, res: Response): Promise<void> {
 		try {
 			const id = Number(req.query.id);
@@ -39,6 +53,7 @@ export class UserController implements IUserController {
 				res.status(404).json({ message: 'User not found' });
 				return;
 			}
+			res.status(200).json(user);
 		} catch (error) {
 			if (error instanceof Error) {
 				res.status(400).json({ message: error.message });

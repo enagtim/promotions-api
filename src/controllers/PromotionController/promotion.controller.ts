@@ -4,29 +4,27 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '../../type';
 import { IPromotionService } from '../../services/PromotionService/promotion.service.interface';
 import 'reflect-metadata';
-import { Promotion } from '@prisma/client';
-
 @injectable()
 export class PromotionController implements IPromotionController {
 	constructor(@inject(TYPES.PromotionService) private promotionService: IPromotionService) {}
 	public async createPromotion(req: Request, res: Response): Promise<void> {
 		try {
-			const { title, description, supplierId, city, createdAt, startDate, endDate } =
-				req.body as Promotion;
-			if (!title || !description || !supplierId || !city || !startDate || !endDate) {
-				res.status(400).json({
-					message: 'Invalid promotion data!',
-				});
+			const { title, description, supplierId, city, startDate, endDate, tagIds } = req.body;
+
+			if (!title || !description || !supplierId || !city || !startDate || !endDate || !tagIds) {
+				res.status(400).json({ message: 'Missing required fields.' });
 				return;
 			}
+
 			const promotion = await this.promotionService.createPromotion({
 				title,
 				description,
 				supplierId,
 				city,
-				createdAt,
-				startDate,
-				endDate,
+				startDate: new Date(startDate),
+				endDate: new Date(endDate),
+				createdAt: new Date(),
+				tagIds,
 			});
 			res.status(201).json(promotion);
 		} catch (error) {
@@ -52,6 +50,19 @@ export class PromotionController implements IPromotionController {
 			if (error instanceof Error) {
 				res.status(400).json({ message: error.message });
 			}
+		}
+	}
+	public async getPromotionsByCityAndTags(req: Request, res: Response): Promise<void> {
+		try {
+			const { city, tagIds } = req.body;
+			if (!city || !tagIds) {
+				res.status(400).json({ message: 'Missing city or tagIds.' });
+				return;
+			}
+			const promotions = await this.promotionService.getPromotionsByCityAndTags(city, tagIds);
+			res.status(200).json(promotions);
+		} catch (error) {
+			res.status(500).json({ message: 'Internal server error.' });
 		}
 	}
 	public async updatePromotionStatus(req: Request, res: Response): Promise<void> {
