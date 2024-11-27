@@ -14,7 +14,7 @@ export function getPromotionsUser(appContainer: Container): Router {
 	promotionRouter.get('/promotion/supplier', authenticate, checkRole('SUPPLIER'), (req, res) => {
 		return promotionController.getPromotionsBySupplier(req, res);
 	});
-	promotionRouter.get('/citytag', authenticate, checkRole('SUPPLIER'), (req, res) => {
+	promotionRouter.get('/all/city/tag', authenticate, checkRole('SUPPLIER'), (req, res) => {
 		return promotionController.getPromotionsByCityAndTags(req, res);
 	});
 	promotionRouter.patch('/promotion/update', authenticate, checkRole('ADMIN'), (req, res) => {

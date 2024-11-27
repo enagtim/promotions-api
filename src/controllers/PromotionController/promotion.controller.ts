@@ -29,7 +29,7 @@ export class PromotionController implements IPromotionController {
 			res.status(201).json(promotion);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
@@ -48,7 +48,7 @@ export class PromotionController implements IPromotionController {
 			res.status(200).json(promotions);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
@@ -80,7 +80,7 @@ export class PromotionController implements IPromotionController {
 			res.status(200).json(promotion);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
@@ -99,7 +99,7 @@ export class PromotionController implements IPromotionController {
 			res.status(200).json({ message: 'Promotion deleted successfully' });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}

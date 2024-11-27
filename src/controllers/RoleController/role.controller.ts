@@ -4,7 +4,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '../../type';
 import { IRoleService } from '../../services/RoleService/role.service.interface';
 import 'reflect-metadata';
-import { InfoRole, User } from '@prisma/client';
+import { InfoRole } from '@prisma/client';
 
 @injectable()
 export class RoleController implements IRoleController {
@@ -27,7 +27,7 @@ export class RoleController implements IRoleController {
 			res.status(201).json(inforole);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
@@ -46,7 +46,7 @@ export class RoleController implements IRoleController {
 			res.status(200).json(inforole);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
@@ -65,7 +65,7 @@ export class RoleController implements IRoleController {
 			res.status(200).json(inforole);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
@@ -84,7 +84,7 @@ export class RoleController implements IRoleController {
 			res.status(200).json({ message: 'Role deleted successfully' });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}

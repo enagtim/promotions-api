@@ -4,7 +4,7 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { TYPES } from '../../type';
 import { IAuthService } from '../../services/AuthService/auth.service.interface';
-import { InfoRole, User } from '@prisma/client';
+import { InfoRole } from '@prisma/client';
 
 @injectable()
 export class AuthController implements IAuthController {
@@ -27,7 +27,7 @@ export class AuthController implements IAuthController {
 			res.status(201).json(registeruser);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
@@ -47,7 +47,7 @@ export class AuthController implements IAuthController {
 			res.status(200).json({ access_token: token });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(400).json({ message: error.message });
+				res.status(500).json({ message: error.message });
 			}
 		}
 	}
