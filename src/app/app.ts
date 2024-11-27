@@ -6,8 +6,10 @@ import { TYPES } from '../type';
 import { PrismaClient } from '@prisma/client';
 import { setupAuthRoutes } from '../routes/auth.routes';
 import dotenv from 'dotenv';
-import { setupUsersRoutes } from '../routes/users.router';
+import { setupRolesRoutes } from '../routes/roles.routes';
 import { setupPromotionsRoutes } from '../routes/promotion.routes';
+import { setupTagsRoutes } from '../routes/tags.routes';
+import { setupUsersRoutes } from '../routes/users.routes';
 
 @injectable()
 export class App {
@@ -22,8 +24,10 @@ export class App {
 	public async init(appContainer: Container) {
 		this.app.use(express.json());
 		this.app.use(setupAuthRoutes(appContainer));
-		this.app.use(setupUsersRoutes(appContainer));
+		this.app.use(setupRolesRoutes(appContainer));
 		this.app.use(setupPromotionsRoutes(appContainer));
+		this.app.use(setupUsersRoutes(appContainer));
+		this.app.use(setupTagsRoutes(appContainer));
 		dotenv.config();
 		await this.prisma.$connect();
 		this.server = this.app.listen(this.port, () => {

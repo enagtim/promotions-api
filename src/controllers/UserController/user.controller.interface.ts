@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 
 export interface IUserController {
-	createUser: (req: Request, res: Response) => Promise<void>;
-	getUserById: (req: Request, res: Response) => Promise<void>;
-	updateUser: (req: Request, res: Response) => Promise<void>;
-	deleteUser: (req: Request, res: Response) => Promise<void>;
+	createUserBot: (req: Request, res: Response) => Promise<void>;
+	getUserBot: (req: Request, res: Response) => Promise<void>;
+	getAllUsers: (req: Request, res: Response) => Promise<void>;
+	getUsersByTagsAndCity: (req: Request, res: Response) => Promise<void>;
+	updateUserData: (req: Request, res: Response) => Promise<void>;
 }

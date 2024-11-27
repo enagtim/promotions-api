@@ -14,13 +14,24 @@ export class PromotionService implements IPromotionService {
 		title: string;
 		description: string;
 		supplierId: number;
-	}): Promise<Promotion> {
+		city: string;
+		startDate: Date;
+		endDate: Date;
+		createdAt: Date;
+		tagIds: number[];
+	}): Promise<Promotion | null> {
 		return this.promotionRepository.create({ ...promotiondata, status: PromotionStatus.PENDING });
 	}
 	public async getPromotionBySupplier(supplierId: number): Promise<Promotion[]> {
-		const promotions = (await this.promotionRepository.getBySupplier(supplierId)) || [];
-		return promotions;
+		return (await this.promotionRepository.getBySupplier(supplierId)) || [];
 	}
+	public async getPromotionsByCityAndTags(
+		city: string,
+		tagIds: number[],
+	): Promise<Promotion[] | null> {
+		return this.promotionRepository.getPromotionsByCityAndTags(city, tagIds);
+	}
+
 	public async updateStatusPromotion(
 		promotionId: number,
 		status: PromotionStatus,

@@ -1,16 +1,9 @@
-import { User, UserRole } from '@prisma/client';
+import { User } from '@prisma/client';
 
 export interface IUserService {
-	createUser: (userdata: {
-		email: string;
-		password: string;
-		name: string;
-		role: UserRole;
-	}) => Promise<User>;
+	createUser: (userdata: { city: string }) => Promise<User | null>;
+	getAllUsers: () => Promise<User[] | null>;
 	getUserById: (id: number) => Promise<User | null>;
-	updateDataUser: (
-		userId: number,
-		userData: Partial<{ email: string; password: string; name: string; role: UserRole }>,
-	) => Promise<User>;
-	deleteUser: (id: number) => Promise<User>;
+	getUsersByTagsAndCity: (tagIds: number[], city: string) => Promise<User[] | null>;
+	updateUser: (id: number, userdata: { city: string }) => Promise<User | null>;
 }
