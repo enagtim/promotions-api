@@ -30,6 +30,12 @@ import { ITagService } from '../services/TagsService/tag.service.interface';
 import { TagService } from '../services/TagsService/tag.service';
 import { ITagController } from '../controllers/TagController/tag.controller.interface';
 import { TagController } from '../controllers/TagController/tag.controller';
+import { INotificationRepository } from '../repositories/NotificationRepository/notification.repository.interface';
+import { NotificationRepository } from '../repositories/NotificationRepository/notification.repository';
+import { INotificationService } from '../services/NotificationService/notification.service.interface';
+import { NotificationService } from '../services/NotificationService/notification.service';
+import { INotificationController } from '../controllers/NotificationController/notifications.controller.interface';
+import { NotificationController } from '../controllers/NotificationController/notification.controller';
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(new PrismaClient());
@@ -47,6 +53,9 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ITagRepository>(TYPES.TagRepository).to(TagRepository);
 	bind<ITagService>(TYPES.TagService).to(TagService);
 	bind<ITagController>(TYPES.TagController).to(TagController);
+	bind<INotificationRepository>(TYPES.NotificationRepository).to(NotificationRepository);
+	bind<INotificationService>(TYPES.NotificationService).to(NotificationService);
+	bind<INotificationController>(TYPES.NotificationController).to(NotificationController);
 	bind<App>(TYPES.Application).to(App);
 });
 function bootstrap() {

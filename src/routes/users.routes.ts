@@ -15,7 +15,7 @@ export function getUsersRoutes(appContainer: Container): Router {
 	usersRouter.get('/all', (req, res) => {
 		return usersController.getAllUsers(req, res);
 	});
-	usersRouter.get('/all/tagcity', (req, res) => {
+	usersRouter.get('/all/tag/city', (req, res) => {
 		return usersController.getUsersByTagsAndCity(req, res);
 	});
 	usersRouter.patch('/user/update', (req, res) => {

@@ -10,6 +10,7 @@ import { setupRolesRoutes } from '../routes/roles.routes';
 import { setupPromotionsRoutes } from '../routes/promotion.routes';
 import { setupTagsRoutes } from '../routes/tags.routes';
 import { setupUsersRoutes } from '../routes/users.routes';
+import { setupNotificationRoutes } from '../routes/notification.routes';
 
 @injectable()
 export class App {
@@ -28,6 +29,7 @@ export class App {
 		this.app.use(setupPromotionsRoutes(appContainer));
 		this.app.use(setupUsersRoutes(appContainer));
 		this.app.use(setupTagsRoutes(appContainer));
+		this.app.use(setupNotificationRoutes(appContainer));
 		dotenv.config();
 		await this.prisma.$connect();
 		this.server = this.app.listen(this.port, () => {

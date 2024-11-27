@@ -1,5 +1,3 @@
-import { TagRepository } from './repositories/TagsRepository/tag.repository';
-
 export const TYPES = {
 	PrismaClient: Symbol.for('PrismaClient'),
 	PromotionRepository: Symbol.for('PromotionRepository'),
@@ -16,5 +14,8 @@ export const TYPES = {
 	TagRepository: Symbol.for('TagRepository'),
 	TagService: Symbol.for('TagService'),
 	TagController: Symbol.for('TagController'),
+	NotificationRepository: Symbol.for('NotificationRepository'),
+	NotificationService: Symbol.for('NotificationService'),
+	NotificationController: Symbol.for('NotificationController'),
 	Application: Symbol.for('Application'),
 };
