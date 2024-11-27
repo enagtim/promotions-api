@@ -22,11 +22,21 @@ Promotion-api — API акционных предложений представ
 
     ```bach
     npm install
-3. **Создание билда**
+3. **Поднятие контейнера Docker**
+
+    ```bach
+   docker-compose up -d
+4. **Добавление файла .env в корень проекта с содержимым**
+
+    ```bach
+    DATABASE_URL=postgresql://admin:admin@localhost:5432/api-d?schema=public
+    JWT_SECRET=JWT
+
+5. **Создание билда**
 
     ```bach
     npm run build
-4. **Запуск сервера**
+6. **Запуск сервера**
 
     ```bach
     npm start
