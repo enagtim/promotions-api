@@ -27,6 +27,10 @@ export class TagController implements ITagController {
 	public async getAllTags(req: Request, res: Response): Promise<void> {
 		try {
 			const tags = await this.tagservice.getAllTags();
+			if (!tags) {
+				res.status(404).json({ message: 'Tags not found' });
+				return;
+			}
 			res.status(200).json(tags);
 		} catch (error) {
 			if (error instanceof Error) {
@@ -42,10 +46,10 @@ export class TagController implements ITagController {
 				return;
 			}
 			await this.tagservice.addTagsToUser(id, req.body);
-			res.status(201).json({ message: 'Tags added successfully' });
+			res.status(200).json({ message: 'Tags added successfully' });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}
@@ -60,7 +64,7 @@ export class TagController implements ITagController {
 			res.status(200).json({ message: 'Tags removed successfully' });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}

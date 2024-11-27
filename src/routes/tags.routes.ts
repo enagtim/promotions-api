@@ -11,7 +11,7 @@ export function getTagsRoutes(appContainer: Container): Router {
 	tagRouter.post('/tag/create', authenticate, checkRole('ADMIN'), (req, res) => {
 		return usersController.createTag(req, res);
 	});
-	tagRouter.post('/add/user', (req, res) => {
+	tagRouter.post('tag/add/user', (req, res) => {
 		return usersController.addTagsToUser(req, res);
 	});
 	tagRouter.get('/all', (req, res) => {
@@ -20,7 +20,7 @@ export function getTagsRoutes(appContainer: Container): Router {
 	tagRouter.get('/all/user', (req, res) => {
 		return usersController.getTagsByUserId(req, res);
 	});
-	tagRouter.delete('/user/remove', (req, res) => {
+	tagRouter.delete('/tag/remove/user', (req, res) => {
 		return usersController.removeTagsFromUser(req, res);
 	});
 	return tagRouter;

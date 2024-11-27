@@ -27,7 +27,7 @@ export class RoleController implements IRoleController {
 			res.status(201).json(inforole);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}

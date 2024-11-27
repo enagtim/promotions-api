@@ -27,20 +27,6 @@ export class UserController implements IUserController {
 			}
 		}
 	}
-	public async getAllUsers(req: Request, res: Response): Promise<void> {
-		try {
-			const users = await this.userservice.getAllUsers();
-			if (!users) {
-				res.status(404).json({ message: 'User not found' });
-				return;
-			}
-			res.status(200).json(users);
-		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
-		}
-	}
 	public async getUserBot(req: Request, res: Response): Promise<void> {
 		try {
 			const id = Number(req.query.id);
@@ -54,22 +40,6 @@ export class UserController implements IUserController {
 				return;
 			}
 			res.status(200).json(user);
-		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
-		}
-	}
-	public async getUsersByTagsAndCity(req: Request, res: Response): Promise<void> {
-		try {
-			const { tagIds, city }: { tagIds: number[]; city: string } = req.body;
-			if (!tagIds || !city) {
-				res.status(400).json({ message: 'Missing tagIds or city in request body.' });
-				return;
-			}
-			const users = await this.userservice.getUsersByTagsAndCity(tagIds, city);
-
-			res.status(200).json(users);
 		} catch (error) {
 			if (error instanceof Error) {
 				res.status(500).json({ message: error.message });

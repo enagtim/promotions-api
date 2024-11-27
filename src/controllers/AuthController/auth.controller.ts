@@ -27,7 +27,7 @@ export class AuthController implements IAuthController {
 			res.status(201).json(registeruser);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}
@@ -47,7 +47,7 @@ export class AuthController implements IAuthController {
 			res.status(200).json({ access_token: token });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}
