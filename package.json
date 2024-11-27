@@ -34,6 +34,8 @@
     "inversify": "^6.1.4",
     "jsonwebtoken": "^9.0.2",
     "reflect-metadata": "^0.2.2",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1",
     "tslog": "^4.9.3"
   },
   "devDependencies": {
