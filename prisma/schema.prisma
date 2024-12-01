@@ -42,7 +42,7 @@ model Promotion {
   startDate     DateTime
   endDate       DateTime  
   createdAt     DateTime        @default(now())
-  tags          PromotionTag[]
+  tags          PromotionTag[]  
   notifications Notification[]
 }
 model Tag {

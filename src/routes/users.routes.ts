@@ -9,8 +9,8 @@ export function getUsersRoutes(appContainer: Container): Router {
 	usersRouter.post('/user/create', (req, res) => {
 		return usersController.createUserBot(req, res);
 	});
-	usersRouter.get('/user', (req, res) => {
-		return usersController.getUserBot(req, res);
+	usersRouter.get('/all', (req, res) => {
+		return usersController.getAllUserBot(req, res);
 	});
 	usersRouter.patch('/user/update', (req, res) => {
 		return usersController.updateUserData(req, res);

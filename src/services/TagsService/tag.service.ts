@@ -8,10 +8,10 @@ import 'reflect-metadata';
 @injectable()
 export class TagService implements ITagService {
 	constructor(@inject(TYPES.TagRepository) private tagRepository: ITagRepository) {}
-	public async createTag(tagdata: { name: string }): Promise<Tag | null> {
-		return this.tagRepository.createTag(tagdata);
+	public async createTag(name: string): Promise<Tag> {
+		return this.tagRepository.createTag(name);
 	}
-	public async getAllTags(): Promise<Tag[] | null> {
+	public async getAllTags(): Promise<Tag[] | []> {
 		return this.tagRepository.getAllTags();
 	}
 	public async addTagsToUser(userId: number, tagIds: number[]): Promise<void> {
@@ -20,7 +20,7 @@ export class TagService implements ITagService {
 	public async removeTagsFromUser(userId: number, tagIds: number[]): Promise<void> {
 		await this.tagRepository.removeTagsFromUser(userId, tagIds);
 	}
-	public async getTagsByUserId(userId: number): Promise<Tag[] | null> {
+	public async getTagsByUserId(userId: number): Promise<Tag[] | []> {
 		return this.tagRepository.getTagsByUserId(userId);
 	}
 }

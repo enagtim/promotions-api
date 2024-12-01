@@ -7,12 +7,12 @@ import 'reflect-metadata';
 @injectable()
 export class TagRepository implements ITagRepository {
 	constructor(@inject(TYPES.PrismaClient) private prisma: PrismaClient) {}
-	public async createTag(tagdata: { name: string }): Promise<Tag | null> {
+	public async createTag(name: string): Promise<Tag> {
 		return this.prisma.tag.create({
-			data: tagdata,
+			data: { name },
 		});
 	}
-	public async getAllTags(): Promise<Tag[] | null> {
+	public async getAllTags(): Promise<Tag[] | []> {
 		return this.prisma.tag.findMany();
 	}
 	public async addTagsToUser(userId: number, tagIds: number[]): Promise<void> {
@@ -32,7 +32,7 @@ export class TagRepository implements ITagRepository {
 			},
 		});
 	}
-	public async getTagsByUserId(userId: number): Promise<Tag[]> {
+	public async getTagsByUserId(userId: number): Promise<Tag[] | []> {
 		return this.prisma.tag.findMany({
 			where: {
 				users: {
