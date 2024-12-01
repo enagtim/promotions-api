@@ -3,21 +3,12 @@ import { IPromotionRepository } from './promotion.repository.interface';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../type';
 import 'reflect-metadata';
+import { IPromotionDto } from '../../dto/promotion.dto.interface';
 
 @injectable()
 export class PromotionRepository implements IPromotionRepository {
 	constructor(@inject(TYPES.PrismaClient) private prisma: PrismaClient) {}
-	public async create(promotionData: {
-		title: string;
-		description: string;
-		status: PromotionStatus;
-		supplierId: number;
-		city: string;
-		createdAt: Date;
-		endDate: Date;
-		startDate: Date;
-		tagIds: number[];
-	}): Promise<Promotion> {
+	public async create(promotionData: IPromotionDto): Promise<Promotion> {
 		const { tagIds, ...promotionFields } = promotionData;
 		return this.prisma.promotion.create({
 			data: {

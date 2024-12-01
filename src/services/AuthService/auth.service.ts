@@ -1,9 +1,9 @@
+import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
 import { IAuthService } from './auth.service.interface';
 import { TYPES } from '../../type';
 import { IRoleRepository } from '../../repositories/RoleRepository/role.repository.interface';
 import { Role, InfoRole } from '@prisma/client';
-import 'reflect-metadata';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 

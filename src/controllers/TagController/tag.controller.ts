@@ -20,7 +20,7 @@ export class TagController implements ITagController {
 			res.status(201).json(tag);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}
@@ -30,7 +30,7 @@ export class TagController implements ITagController {
 			res.status(200).json(tags);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}
@@ -38,14 +38,14 @@ export class TagController implements ITagController {
 		try {
 			const id = Number(req.query.id);
 			if (!id) {
-				res.status(400).json({ message: 'User ID is required' });
+				res.status(404).json({ message: 'User ID is required' });
 				return;
 			}
 			const tags = await this.tagservice.getTagsByUserId(id);
 			res.status(200).json(tags);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}
@@ -65,7 +65,7 @@ export class TagController implements ITagController {
 			res.status(200).json({ message: 'Tags added successfully' });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}
@@ -85,7 +85,7 @@ export class TagController implements ITagController {
 			res.status(200).json({ message: 'Tags removed successfully' });
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res.status(404).json({ message: error.message });
 			}
 		}
 	}

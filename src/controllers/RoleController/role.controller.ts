@@ -6,18 +6,14 @@ import { IRoleService } from '../../services/RoleService/role.service.interface'
 import 'reflect-metadata';
 import bcrypt from 'bcryptjs';
 import { Role } from '@prisma/client';
+import { IRoleRegisterDto } from '../../dto/register.dto.interface';
 
 @injectable()
 export class RoleController implements IRoleController {
 	constructor(@inject(TYPES.RoleService) private roleService: IRoleService) {}
 	public async createRole(req: Request, res: Response): Promise<void> {
 		try {
-			const {
-				email,
-				password,
-				name,
-				role,
-			}: { email: string; password: string; name: string; role: Role } = req.body;
+			const { email, password, name, role }: IRoleRegisterDto = req.body;
 			if (!email || !password || !name || !role) {
 				res.status(400).json({
 					message: 'Invalid user data. email, password, name and role are required.',

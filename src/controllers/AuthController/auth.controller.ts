@@ -1,13 +1,12 @@
+import 'reflect-metadata';
 import { Request, Response } from 'express';
 import { IAuthController } from './auth.controller.interface';
 import { inject, injectable } from 'inversify';
-import 'reflect-metadata';
 import { TYPES } from '../../type';
 import { IAuthService } from '../../services/AuthService/auth.service.interface';
-import { InfoRole, Role } from '@prisma/client';
 import { IRoleRegisterDto } from '../../dto/register.dto.interface';
-import bcrypt from 'bcryptjs';
 import { IRoleLoginDto } from '../../dto/login.dto.interface';
+import bcrypt from 'bcryptjs';
 
 @injectable()
 export class AuthController implements IAuthController {
@@ -17,7 +16,7 @@ export class AuthController implements IAuthController {
 			const { email, password, name, role }: IRoleRegisterDto = req.body;
 			if (!email || !password || !name || !role) {
 				res.status(400).json({
-					message: 'Invalid user data. email, password, name, role are required.',
+					message: 'Invalid admin data. email, password, name, role are required.',
 				});
 				return;
 			}
