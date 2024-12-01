@@ -22,25 +22,28 @@ export class PromotionService implements IPromotionService {
 	}): Promise<Promotion | null> {
 		return this.promotionRepository.create({ ...promotiondata, status: PromotionStatus.PENDING });
 	}
-	public async getPromotionBySupplier(supplierId: number): Promise<Promotion[]> {
+	public async getPromotionBySupplier(supplierId: number): Promise<Promotion[] | []> {
 		return (await this.promotionRepository.getBySupplier(supplierId)) || [];
 	}
 	public async getPromotionsByCityAndTags(
 		city: string,
 		tagIds: number[],
-	): Promise<Promotion[] | null> {
+	): Promise<Promotion[] | []> {
 		return this.promotionRepository.getPromotionsByCityAndTags(city, tagIds);
 	}
-
+	public async getByIdPromotion(promotionId: number): Promise<Promotion | null> {
+		return this.promotionRepository.getById(promotionId);
+	}
 	public async updateStatusPromotion(
 		promotionId: number,
 		status: PromotionStatus,
 	): Promise<Promotion | null> {
-		await this.promotionRepository.getById(promotionId);
 		return this.promotionRepository.updateStatus(promotionId, status);
 	}
-	public async deletePromotion(promotionId: number): Promise<Promotion | null> {
-		await this.promotionRepository.getById(promotionId);
-		return this.promotionRepository.delete(promotionId);
+	public async deletePromotion(promotionId: number): Promise<void> {
+		if (!promotionId) {
+			throw new Error('Promotion not found');
+		}
+		await this.promotionRepository.delete(promotionId);
 	}
 }

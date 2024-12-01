@@ -19,6 +19,6 @@ export class NotificationService implements INotificationService {
 		return this.notificationrepository.getNotifications(userId);
 	}
 	public async deleteNotificationForUser(id: number): Promise<void> {
-		await this.notificationrepository.deleteNotification(id);
+		return this.notificationrepository.deleteNotification(id);
 	}
 }

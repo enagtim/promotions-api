@@ -10,32 +10,25 @@ import jwt from 'jsonwebtoken';
 @injectable()
 export class AuthService implements IAuthService {
 	constructor(@inject(TYPES.RoleRepository) private roleRepository: IRoleRepository) {}
-	public async register(registerdata: {
-		email: string;
-		password: string;
-		name: string;
-		role: Role;
-	}): Promise<InfoRole | null> {
-		if (registerdata.role === 'ADMIN') {
-			const admin = await this.roleRepository.getByRole(registerdata.role);
-			if (admin) {
-				throw new Error(`Admin is existed!`);
-			}
-		}
-		if (registerdata.role === 'SUPPLIER') {
-			throw new Error('Only admin can register! We should wait until ADMIN create your account');
-		}
-		const hashedPassword = await bcrypt.hash(registerdata.password, 10);
-		return this.roleRepository.create({ ...registerdata, password: hashedPassword });
+	public async register(
+		email: string,
+		password: string,
+		name: string,
+		role: Role,
+	): Promise<InfoRole> {
+		return this.roleRepository.create(email, password, name, role);
 	}
-	public async login(logingdata: { email: string; password: string }): Promise<{ token: string }> {
-		const role = await this.roleRepository.getByEmail(logingdata.email);
+	public async getByRole(role: Role): Promise<InfoRole | null> {
+		return this.roleRepository.getByRole(role);
+	}
+	public async login(email: string, password: string): Promise<{ token: string } | null> {
+		const role = await this.roleRepository.getByEmail(email);
 		if (!role) {
-			throw new Error('Email or password not valid!');
+			return null;
 		}
-		const isPasswordIsValid = await bcrypt.compare(logingdata.password, role.password);
+		const isPasswordIsValid = await bcrypt.compare(password, role.password);
 		if (!isPasswordIsValid) {
-			throw new Error('Password invalid');
+			return null;
 		}
 		const token = jwt.sign(
 			{ id: role.id, role: role.role },

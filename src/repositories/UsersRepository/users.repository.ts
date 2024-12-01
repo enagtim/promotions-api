@@ -7,20 +7,18 @@ import { PrismaClient, User } from '@prisma/client';
 @injectable()
 export class UserRepository implements IUserRepository {
 	constructor(@inject(TYPES.PrismaClient) private prisma: PrismaClient) {}
-	public async create(userdata: { city: string }): Promise<User | null> {
+	public async create(city: string): Promise<User> {
 		return this.prisma.user.create({
-			data: userdata,
+			data: { city },
 		});
 	}
-	public async getUser(id: number): Promise<User | null> {
-		return this.prisma.user.findUnique({
-			where: { id },
-		});
+	public async getAllUser(): Promise<User[] | []> {
+		return this.prisma.user.findMany();
 	}
-	public async updateData(id: number, userdata: { city: string }): Promise<User | null> {
+	public async updateData(id: number, city: string): Promise<User> {
 		return this.prisma.user.update({
 			where: { id },
-			data: userdata,
+			data: { city },
 		});
 	}
 }

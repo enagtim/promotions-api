@@ -42,7 +42,7 @@ model Promotion {
   startDate     DateTime
   endDate       DateTime  
   createdAt     DateTime        @default(now())
-  tags          PromotionTag[]
+  tags          PromotionTag[]  @relation
   notifications Notification[]
 }
 model Tag {
@@ -64,7 +64,7 @@ model PromotionTag {
   promotionId  Int
   tagId        Int
   createdAt    DateTime   @default(now())
-  promotion    Promotion  @relation(fields: [promotionId], references: [id])
+  promotion    Promotion  @relation(fields: [promotionId], references: [id], onDelete: Cascade)
   tag          Tag        @relation(fields: [tagId], references: [id])
 
   @@unique([promotionId, tagId])

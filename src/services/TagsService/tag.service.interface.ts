@@ -1,9 +1,9 @@
 import { Tag } from '@prisma/client';
 
 export interface ITagService {
-	createTag: (tagdata: { name: string }) => Promise<Tag | null>;
-	getAllTags: () => Promise<Tag[] | null>;
+	createTag: (name: string) => Promise<Tag>;
+	getAllTags: () => Promise<Tag[] | []>;
 	addTagsToUser: (userId: number, tagIds: number[]) => Promise<void>;
 	removeTagsFromUser: (userId: number, tagIds: number[]) => Promise<void>;
-	getTagsByUserId: (userId: number) => Promise<Tag[] | null>;
+	getTagsByUserId: (userId: number) => Promise<Tag[] | []>;
 }

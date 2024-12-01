@@ -35,7 +35,7 @@ export class PromotionRepository implements IPromotionRepository {
 			where: { id: promotionId },
 		});
 	}
-	public async getBySupplier(supplierId: number): Promise<Promotion[] | null> {
+	public async getBySupplier(supplierId: number): Promise<Promotion[] | []> {
 		return this.prisma.promotion.findMany({
 			where: { supplierId },
 		});
@@ -43,7 +43,7 @@ export class PromotionRepository implements IPromotionRepository {
 	public async getPromotionsByCityAndTags(
 		city: string,
 		tagIds: number[],
-	): Promise<Promotion[] | null> {
+	): Promise<Promotion[] | []> {
 		return this.prisma.promotion.findMany({
 			where: {
 				city,
@@ -61,8 +61,8 @@ export class PromotionRepository implements IPromotionRepository {
 			data: { status },
 		});
 	}
-	public async delete(promotionId: number): Promise<Promotion> {
-		return this.prisma.promotion.delete({
+	public async delete(promotionId: number): Promise<void> {
+		await this.prisma.promotion.delete({
 			where: { id: promotionId },
 		});
 	}
