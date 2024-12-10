@@ -15,10 +15,10 @@ export class NotificationService implements INotificationService {
 	): Promise<void> {
 		await this.notificationrepository.createNotification(promotionId, userIds);
 	}
-	public async getNotificationsByUser(userId: number): Promise<Notification[] | null> {
-		return this.notificationrepository.getNotifications(userId);
+	public async getNotificationsByUser(userId: number): Promise<Notification[] | []> {
+		return this.notificationrepository.getNotificationsByUser(userId);
 	}
-	public async deleteNotificationForUser(id: number): Promise<void> {
-		await this.notificationrepository.deleteNotification(id);
+	public async deleteNotificationById(id: number): Promise<void> {
+		return this.notificationrepository.deleteNotificationById(id);
 	}
 }

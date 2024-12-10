@@ -12,13 +12,13 @@ export class NotificationRepository implements INotificationRepository {
 			data: userIds.map((userId) => ({ userId, promotionId })),
 		});
 	}
-	public async getNotifications(userId: number): Promise<Notification[] | null> {
+	public async getNotificationsByUser(id: number): Promise<Notification[] | []> {
 		return this.prisma.notification.findMany({
-			where: { id: userId },
+			where: { id },
 			include: { promotion: true },
 		});
 	}
-	public async deleteNotification(id: number): Promise<void> {
+	public async deleteNotificationById(id: number): Promise<void> {
 		await this.prisma.notification.delete({
 			where: { id },
 		});

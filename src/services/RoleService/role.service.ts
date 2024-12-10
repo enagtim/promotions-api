@@ -9,18 +9,17 @@ import 'reflect-metadata';
 @injectable()
 export class RoleService implements IRoleService {
 	constructor(@inject(TYPES.RoleRepository) private roleRepository: IRoleRepository) {}
-	public async createRole(roledata: {
-		email: string;
-		password: string;
-		name: string;
-		role: Role;
-	}): Promise<InfoRole | null> {
-		const existedRole = await this.roleRepository.getByEmail(roledata.email);
+	public async createRole(
+		email: string,
+		password: string,
+		name: string,
+		role: Role,
+	): Promise<InfoRole> {
+		const existedRole = await this.roleRepository.getByEmail(email);
 		if (existedRole) {
-			throw new Error(`Role ${roledata.email} is existed!`);
+			throw new Error(`Role ${email} is existed!`);
 		}
-		const hashedPassword = await bcrypt.hash(roledata.password, 10);
-		return this.roleRepository.create({ ...roledata, password: hashedPassword });
+		return this.roleRepository.create(email, password, name, role);
 	}
 	public async getRoleById(id: number): Promise<InfoRole | null> {
 		return await this.roleRepository.getById(id);
@@ -29,14 +28,12 @@ export class RoleService implements IRoleService {
 		id: number,
 		roledata: Partial<{ email: string; password: string; name: string; role: Role }>,
 	): Promise<InfoRole | null> {
-		await this.roleRepository.getById(id);
 		if (roledata.password) {
 			roledata.password = await bcrypt.hash(roledata.password, 10);
 		}
 		return this.roleRepository.update(id, roledata);
 	}
-	public async deleteRole(id: number): Promise<InfoRole | null> {
-		await this.roleRepository.getById(id);
-		return this.roleRepository.delete(id);
+	public async deleteRole(id: number): Promise<void> {
+		await this.roleRepository.delete(id);
 	}
 }

@@ -11,11 +11,12 @@ export interface IPromotionService {
 		createdAt: Date;
 		tagIds: number[];
 	}) => Promise<Promotion | null>;
-	getPromotionBySupplier: (supplierId: number) => Promise<Promotion[] | null>;
-	getPromotionsByCityAndTags: (city: string, tagIds: number[]) => Promise<Promotion[] | null>;
+	getByIdPromotion: (promotionId: number) => Promise<Promotion | null>;
+	getPromotionBySupplier: (supplierId: number) => Promise<Promotion[] | []>;
+	getPromotionsByCityAndTags: (city: string, tagIds: number[]) => Promise<Promotion[] | []>;
 	updateStatusPromotion: (
 		promotionId: number,
 		status: PromotionStatus,
 	) => Promise<Promotion | null>;
-	deletePromotion: (promotionId: number) => Promise<Promotion | null>;
+	deletePromotion: (promotionId: number) => Promise<void>;
 }

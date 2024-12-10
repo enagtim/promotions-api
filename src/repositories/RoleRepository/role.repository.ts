@@ -7,14 +7,19 @@ import 'reflect-metadata';
 @injectable()
 export class RoleRepository implements IRoleRepository {
 	constructor(@inject(TYPES.PrismaClient) private prisma: PrismaClient) {}
-	public async create(roledata: {
-		email: string;
-		password: string;
-		name: string;
-		role: Role;
-	}): Promise<InfoRole> {
+	public async create(
+		email: string,
+		password: string,
+		name: string,
+		role: Role,
+	): Promise<InfoRole> {
 		return this.prisma.infoRole.create({
-			data: roledata,
+			data: { email, password, name, role },
+		});
+	}
+	public async getByRole(role: Role): Promise<InfoRole | null> {
+		return this.prisma.infoRole.findFirst({
+			where: { role },
 		});
 	}
 	public async getById(id: number): Promise<InfoRole | null> {
@@ -27,11 +32,6 @@ export class RoleRepository implements IRoleRepository {
 			where: { email },
 		});
 	}
-	public async getByRole(inforole: Role): Promise<InfoRole | null> {
-		return this.prisma.infoRole.findFirst({
-			where: { role: inforole },
-		});
-	}
 	public async update(
 		id: number,
 		roledata: Partial<{ email: string; password: string; name: string; role: Role }>,
@@ -41,8 +41,8 @@ export class RoleRepository implements IRoleRepository {
 			data: roledata,
 		});
 	}
-	public async delete(id: number): Promise<InfoRole> {
-		return this.prisma.infoRole.delete({
+	public async delete(id: number): Promise<void> {
+		await this.prisma.infoRole.delete({
 			where: { id },
 		});
 	}

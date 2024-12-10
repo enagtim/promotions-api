@@ -4,7 +4,6 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { TYPES } from '../../type';
 import { IUserService } from '../../services/UserService/user.service.interface';
-import { User } from '@prisma/client';
 
 @injectable()
 export class UserController implements IUserController {
@@ -12,38 +11,27 @@ export class UserController implements IUserController {
 
 	public async createUserBot(req: Request, res: Response): Promise<void> {
 		try {
-			const { city } = req.body as User;
+			const { city }: { city: string } = req.body;
 			if (!city) {
 				res.status(400).json({ message: 'City is required' });
 				return;
 			}
-			const user = await this.userservice.createUser({
-				city,
-			});
+			const user = await this.userservice.createUser(city);
 			res.status(201).json(user);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
-	public async getUserBot(req: Request, res: Response): Promise<void> {
+	public async getAllUserBot(req: Request, res: Response): Promise<void> {
 		try {
-			const id = Number(req.query.id);
-			if (!id) {
-				res.status(400).json({ message: 'User ID is required' });
-				return;
-			}
-			const user = await this.userservice.getUserById(id);
-			if (!user) {
-				res.status(404).json({ message: 'User not found' });
-				return;
-			}
-			res.status(200).json(user);
+			const users = await this.userservice.getAllUser();
+			res.status(200).json(users);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async updateUserData(req: Request, res: Response): Promise<void> {
@@ -53,16 +41,17 @@ export class UserController implements IUserController {
 				res.status(400).json({ message: 'User ID is required' });
 				return;
 			}
-			const user = await this.userservice.updateUser(id, req.body);
-			if (!user) {
-				res.status(404).json({ message: 'User not found' });
+			const { city }: { city: string } = req.body;
+			if (!city) {
+				res.status(400).json({ message: 'City is required' });
 				return;
 			}
-			res.status(200).json(user);
+			const updateuser = await this.userservice.updateUser(id, city);
+			res.status(200).json(updateuser);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 }

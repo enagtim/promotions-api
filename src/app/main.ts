@@ -37,6 +37,11 @@ import { NotificationService } from '../services/NotificationService/notificatio
 import { INotificationController } from '../controllers/NotificationController/notifications.controller.interface';
 import { NotificationController } from '../controllers/NotificationController/notification.controller';
 
+export interface IBootstrapReturn {
+	appContainer: Container;
+	app: App;
+}
+
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(new PrismaClient());
 	bind<IRoleRepository>(TYPES.RoleRepository).to(RoleRepository);
@@ -58,12 +63,12 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<INotificationController>(TYPES.NotificationController).to(NotificationController);
 	bind<App>(TYPES.Application).to(App);
 });
-function bootstrap() {
+async function bootstrap(): Promise<{ appContainer: Container; app: App }> {
 	const appContainer = new Container();
 	appContainer.load(appBindings);
 	const app = appContainer.get<App>(TYPES.Application);
-	app.init(appContainer);
+	await app.init(appContainer);
 	return { appContainer, app };
 }
 
-export const { appContainer, app } = bootstrap();
+export const boot = bootstrap();
