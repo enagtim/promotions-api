@@ -31,7 +31,9 @@ export class PromotionController implements IPromotionController {
 			res.status(201).json(promotion);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res
+					.status(500)
+					.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 			}
 		}
 	}
@@ -46,7 +48,9 @@ export class PromotionController implements IPromotionController {
 			res.status(200).json(promotions);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res
+					.status(500)
+					.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 			}
 		}
 	}
@@ -61,7 +65,9 @@ export class PromotionController implements IPromotionController {
 				(await this.promotionService.getPromotionsByCityAndTags(city, tagIds)) || [];
 			res.status(200).json(promotions);
 		} catch (error) {
-			res.status(500).json({ message: 'Internal server error.' });
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async updatePromotionStatus(req: Request, res: Response): Promise<void> {
@@ -74,9 +80,9 @@ export class PromotionController implements IPromotionController {
 			const promotion = await this.promotionService.updateStatusPromotion(id, req.body.status);
 			res.status(200).json(promotion);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async deletePromotion(req: Request, res: Response): Promise<void> {
@@ -89,9 +95,9 @@ export class PromotionController implements IPromotionController {
 			const promotion = await this.promotionService.deletePromotion(id);
 			res.status(200).json(promotion);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 }

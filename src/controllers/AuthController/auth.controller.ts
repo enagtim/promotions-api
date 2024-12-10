@@ -28,8 +28,8 @@ export class AuthController implements IAuthController {
 				}
 			}
 			if (role === 'SUPPLIER') {
-				res.status(400).json({
-					message: 'Only admin can register! We should wait until ADMIN create your account',
+				res.status(403).json({
+					message: 'Registration is restricted. Only ADMIN can create SUPPLIER accounts.',
 				});
 				return;
 			}
@@ -37,9 +37,9 @@ export class AuthController implements IAuthController {
 			const admin = await this.authservice.register(email, hashedPassword, name, role);
 			res.status(201).json(admin);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async login(req: Request, res: Response): Promise<void> {
@@ -53,14 +53,14 @@ export class AuthController implements IAuthController {
 			}
 			const result = await this.authservice.login(email, password);
 			if (!result) {
-				res.status(404).json({ message: 'Invalid email or password.' });
+				res.status(401).json({ message: 'Invalid email or password.' });
 				return;
 			}
 			res.status(200).json({ access_token: result.token });
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 }

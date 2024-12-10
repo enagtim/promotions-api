@@ -24,9 +24,9 @@ export class RoleController implements IRoleController {
 			const inforole = await this.roleService.createRole(email, hashedPassword, name, role);
 			res.status(201).json(inforole);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async getRoleById(req: Request, res: Response): Promise<void> {
@@ -44,7 +44,9 @@ export class RoleController implements IRoleController {
 			res.status(200).json(role);
 		} catch (error) {
 			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
+				res
+					.status(500)
+					.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 			}
 		}
 	}
@@ -63,9 +65,9 @@ export class RoleController implements IRoleController {
 			const inforole = await this.roleService.updateDataRole(id, req.body);
 			res.status(200).json(inforole);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async deleteRole(req: Request, res: Response): Promise<void> {
@@ -83,9 +85,9 @@ export class RoleController implements IRoleController {
 			await this.roleService.deleteRole(id);
 			res.status(200).json({ message: 'Role deleted successfully' });
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 }

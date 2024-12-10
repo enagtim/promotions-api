@@ -21,9 +21,9 @@ export class NotificationController implements INotificationController {
 			await this.notificationservice.createNotificationForPromotion(promotionId, userIds);
 			res.status(201).json({ message: 'Notifications created.' });
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async getNotificationsByUser(req: Request, res: Response): Promise<void> {
@@ -36,9 +36,9 @@ export class NotificationController implements INotificationController {
 			const notifications = await this.notificationservice.getNotificationsByUser(id);
 			res.status(200).json(notifications);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async deleteNotificationForUser(req: Request, res: Response): Promise<void> {
@@ -51,9 +51,9 @@ export class NotificationController implements INotificationController {
 			await this.notificationservice.deleteNotificationById(id);
 			res.status(200).json({ message: 'User notification deleted successfully.' });
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 }

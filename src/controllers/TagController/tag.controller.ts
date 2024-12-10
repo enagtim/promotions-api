@@ -19,9 +19,9 @@ export class TagController implements ITagController {
 			const tag = await this.tagservice.createTag(name);
 			res.status(201).json(tag);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async getAllTags(req: Request, res: Response): Promise<void> {
@@ -29,9 +29,9 @@ export class TagController implements ITagController {
 			const tags = await this.tagservice.getAllTags();
 			res.status(200).json(tags);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async getTagsByUserId(req: Request, res: Response): Promise<void> {
@@ -44,9 +44,9 @@ export class TagController implements ITagController {
 			const tags = await this.tagservice.getTagsByUserId(id);
 			res.status(200).json(tags);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async addTagsToUser(req: Request, res: Response): Promise<void> {
@@ -64,9 +64,9 @@ export class TagController implements ITagController {
 			await this.tagservice.addTagsToUser(id, tagIds);
 			res.status(200).json({ message: 'Tags added successfully' });
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async removeTagsFromUser(req: Request, res: Response): Promise<void> {
@@ -84,9 +84,9 @@ export class TagController implements ITagController {
 			await this.tagservice.removeTagsFromUser(id, tagIds);
 			res.status(200).json({ message: 'Tags removed successfully' });
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 }

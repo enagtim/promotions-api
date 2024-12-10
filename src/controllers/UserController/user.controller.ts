@@ -19,9 +19,9 @@ export class UserController implements IUserController {
 			const user = await this.userservice.createUser(city);
 			res.status(201).json(user);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async getAllUserBot(req: Request, res: Response): Promise<void> {
@@ -29,9 +29,9 @@ export class UserController implements IUserController {
 			const users = await this.userservice.getAllUser();
 			res.status(200).json(users);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(500).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 	public async updateUserData(req: Request, res: Response): Promise<void> {
@@ -49,9 +49,9 @@ export class UserController implements IUserController {
 			const updateuser = await this.userservice.updateUser(id, city);
 			res.status(200).json(updateuser);
 		} catch (error) {
-			if (error instanceof Error) {
-				res.status(404).json({ message: error.message });
-			}
+			res
+				.status(500)
+				.json({ message: error instanceof Error ? error.message : 'Unexpected error occurred.' });
 		}
 	}
 }
