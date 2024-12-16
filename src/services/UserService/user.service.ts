@@ -8,14 +8,13 @@ import { IUserRepository } from '../../repositories/UsersRepository/user.reposit
 @injectable()
 export class UserService implements IUserService {
 	constructor(@inject(TYPES.UserRepository) private userRepository: IUserRepository) {}
-	public async createUser(userdata: { city: string }): Promise<User | null> {
-		return this.userRepository.create(userdata);
+	public async createUser(city: string): Promise<User> {
+		return this.userRepository.create(city);
 	}
-	public async getUserById(id: number): Promise<User | null> {
-		return this.userRepository.getUser(id);
+	public async getAllUser(): Promise<User[] | []> {
+		return this.userRepository.getAllUser();
 	}
-	public async updateUser(id: number, userdata: { city: string }): Promise<User | null> {
-		await this.userRepository.getUser(id);
-		return this.userRepository.updateData(id, userdata);
+	public async updateUser(id: number, city: string): Promise<User> {
+		return this.userRepository.updateData(id, city);
 	}
 }

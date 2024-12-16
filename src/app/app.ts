@@ -14,9 +14,9 @@ import { setupNotificationRoutes } from '../routes/notification.routes';
 
 @injectable()
 export class App {
-	private app: Express;
-	private port: number;
-	private server: Server;
+	app: Express;
+	port: number;
+	server: Server;
 
 	constructor(@inject(TYPES.PrismaClient) private prisma: PrismaClient) {
 		this.app = express();
@@ -35,5 +35,8 @@ export class App {
 		this.server = this.app.listen(this.port, () => {
 			console.log(`Server start on http://localhost:${this.port}`);
 		});
+	}
+	public close(): void {
+		this.server.close();
 	}
 }

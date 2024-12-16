@@ -13,8 +13,8 @@ export interface IPromotionRepository {
 		tagIds: number[];
 	}) => Promise<Promotion>;
 	getById: (promotionId: number) => Promise<Promotion | null>;
-	getBySupplier: (supplierId: number) => Promise<Promotion[] | null>;
+	getBySupplier: (supplierId: number) => Promise<Promotion[] | []>;
+	getPromotionsByCityAndTags: (city: string, tagIds: number[]) => Promise<Promotion[] | []>;
 	updateStatus: (promotionId: number, status: PromotionStatus) => Promise<Promotion>;
-	delete: (promotionId: number) => Promise<Promotion>;
-	getPromotionsByCityAndTags: (city: string, tagIds: number[]) => Promise<Promotion[] | null>;
+	delete: (promotionId: number) => Promise<void>;
 }
